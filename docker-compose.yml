@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  pred-bot:
+    build: .
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - ./logs:/app/logs
