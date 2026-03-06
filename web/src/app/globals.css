@@ -1,17 +1,23 @@
 :root {
-  --background: #0a0a0b;
-  --foreground: #f0f0f5;
-  --card-bg: #141417;
-  --card-border: #242428;
-  --primary: #3b82f6;
-  --primary-glow: rgba(59, 130, 246, 0.4);
-  --secondary: #6366f1;
-  --accent: #22d3ee;
+  --background: #020617; /* Deep Sea Abyss */
+  --foreground: #f8fafc;
+  --card-bg: rgba(15, 23, 42, 0.4);
+  --card-border: rgba(144, 224, 239, 0.1);
+  
+  --primary: #90E0EF; /* Ice Cyan / Tech Blue */
+  --primary-glow: rgba(144, 224, 239, 0.3);
+  
+  --secondary: #0077B6; /* Deep Marine Blue */
+  
+  --accent: #FF7438; /* Expedition Orange / Coral */
+  --accent-glow: rgba(255, 116, 56, 0.4);
+  
   --success: #10b981;
   --error: #ef4444;
-  --text-muted: #888891;
+  --text-muted: #94a3b8;
+  
   --font-mono: 'Geist Mono', 'SF Mono', 'Roboto Mono', monospace;
-  --grid-line: rgba(255, 255, 255, 0.03);
+  --grid-line: rgba(144, 224, 239, 0.03);
 }
 
 * {
@@ -31,121 +37,111 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Scrollbar - Hidden for Immersive Experience */
+::-webkit-scrollbar {
+  display: none;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* Background Grid Effect */
+/* Cinematic Background Particles */
+.bg-particles {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at center, var(--primary-glow) 0%, transparent 70%);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+}
+
 .bg-grid {
   position: fixed;
   inset: 0;
   background-image: 
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-size: 60px 60px;
   z-index: -1;
-  mask-image: radial-gradient(circle at center, black, transparent 80%);
-}
-
-.glow-circle {
-  position: fixed;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(60px);
-  z-index: -1;
-  opacity: 0.3;
+  mask-image: radial-gradient(circle at center, black, transparent 90%);
 }
 
 /* Typography */
 h1, h2, h3, h4 {
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
 }
 
-.title-gradient {
-  background: linear-gradient(to right, #fff, #3b82f6);
+.text-gradient-cyan {
+  background: linear-gradient(to bottom right, #fff, var(--primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
-/* Layout Utilities */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 2rem;
+.text-gradient-coral {
+  background: linear-gradient(to bottom right, #fff, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.section {
-  padding: 8rem 0;
-}
-
-/* Card Style */
+/* Components */
 .card {
   background: var(--card-bg);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--card-border);
-  border-radius: 12px;
+  border-radius: 4px; /* Sharper, more technical corners */
   padding: 2rem;
-  transition: border-color 0.2s, transform 0.2s;
-}
-
-.card:hover {
-  border-color: var(--primary);
-  transform: translateY(-2px);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .button {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
 }
 
 .button-primary {
-  background: var(--primary);
-  color: white;
+  background: var(--accent);
+  color: #fff;
   border: none;
 }
 
 .button-primary:hover {
-  opacity: 0.9;
-  box-shadow: 0 0 20px var(--primary-glow);
+  background: #fff;
+  color: var(--accent);
+  box-shadow: 0 0 30px var(--accent-glow);
 }
 
 .button-outline {
   background: transparent;
-  border: 1px solid var(--card-border);
-  color: var(--foreground);
-}
-
-.button-outline:hover {
-  background: var(--card-border);
-}
-
-/* Stats/Orderbook styles */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
-
-.stat-value {
-  font-size: 1.5rem;
-  font-family: var(--font-mono);
-  font-weight: 700;
+  border: 1px solid var(--primary);
   color: var(--primary);
 }
 
-.stat-label {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.button-outline:hover {
+  background: var(--primary);
+  color: var(--background);
+}
+
+/* Timeline specific */
+.chapter-marker {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.75rem;
+  opacity: 0.6;
 }
